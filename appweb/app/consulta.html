@@ -1,0 +1,155 @@
+<!doctype html>
+<html class="no-js">
+<head>
+    <meta charset="utf-8">
+    <title>ZonaQR</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+
+
+    <script src="bower_components/platform/platform.js"></script>
+    <link rel="import" href="bower_components/core-scaffold/core-scaffold.html">
+    <link rel="import" href="bower_components/core-header-panel/core-header-panel.html">
+    <link rel="import" href="bower_components/core-scroll-header-panel/core-scroll-header-panel.html">
+    <link rel="import" href="bower_components/core-menu/core-menu.html">
+    <link rel="import" href="bower_components/core-item/core-item.html"/>
+    <link rel="import" href="bower_components/google-map/google-map.html"/>
+    <link rel="import" href="bower_components/paper-ripple/paper-ripple.html"/>
+
+    <link rel="import" href="bower_components/core-icons/core-icons.html"/>
+    <link rel="import" href="bower_components/paper-icon-button/paper-icon-button.html"/>
+
+    <!-- build:css styles/vendor.css -->
+    <!-- bower:css -->
+    <!-- endbower -->
+    <!-- endbuild -->
+
+    <!-- build:css styles/main.css -->
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/vendor.css">
+    <!-- endbuild -->
+
+    <style shim-shadowdom>
+
+        body {
+            font-family: sans-serif;
+        }
+
+        core-header-panel {
+            float: left;
+            width: 100%;
+            height: 600px;
+        }
+
+        core-header-panel[mode=cover]::shadow #mainContainer {
+            left: 20px;
+            right: 20px;
+        }
+
+        .core-header {
+            height: 60px;
+            line-height: 60px;
+            font-size: 18px;
+            padding: 0 10px;
+            background-color: #ccc;
+            color: #FFF;
+            transition: height 0.2s;
+            background-repeat:no-repeat;
+            background-size:100%;
+            background-position:center;
+        }
+
+        .core-header.tall {
+            height: 200px;
+        }
+
+        .core-header.medium-tall {
+            height: 120px;
+        }
+
+        .content {
+            height: 700px;
+            background: linear-gradient(white,#f0f0f0);
+        }
+
+        #content-consulta{
+            height: 0px;
+        }
+
+
+    </style>
+</head>
+<body unresolved>
+
+<core-header-panel id="core-header-consulta" navigation flex mode="seamed">
+    <core-toolbar>
+        <div id="logo_app"><img src="images/ZonaQR_logo.png"></div>
+        <div flex></div>
+        <core-icon-button id="btn_regresar" icon="arrow-back"></core-icon-button>
+    </core-toolbar>
+    <div id="content-consulta" class="">
+        <core-header-panel mode="cover">
+            <div class="core-header tall"></div>
+            <div id="consulta-info" class="content" style="margin: 60px 0px 60px 0;">
+                <div class="container-fluid informacion">
+                        <h1></h1>
+                        <div id="map-canvas" style="width: 0px; height: 0px"></div>
+                        <div id="pano" style="width: 100%; height: 300px;"></div>
+                        <p class="lead"></p>
+                    <div class="row">
+                        <div class="col-lg-4" id="info-ubicacion">
+                            <h2>Ubicacion</h2>
+                            <p class="ubicacion"><img></p>
+                            <p class="direccion"></p>
+                        </div>
+                        <div class="col-lg-4" id="info-como-llegar">
+                            <h2>Como llegar</h2>
+                            <p class="como_llegar"></p>
+                        </div>
+                        <div class="col-lg-4" id="info-historia">
+                            <h2>Historia</h2>
+                            <p class="historia"></p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </core-header-panel>
+    </div>
+</core-header-panel>
+
+
+
+
+
+
+
+<script type="text/javascript">
+    var rest = "http://192.168.110.156:8084/zonaqr/api/v1/";
+</script>
+<script src="https://maps.googleapis.com/maps/api/js?v=3.exp"></script>
+<!-- build:js scripts/vendor.js -->
+<!-- bower:js -->
+<script src="bower_components/jquery/dist/jquery.js"></script>
+
+<!-- endbower -->
+<!-- endbuild -->
+
+<!-- build:js scripts/main.js -->
+<script src="scripts/consulta.js"></script>
+<!-- endbuild -->
+
+<script type="text/javascript">
+
+
+
+
+</script>
+
+
+
+</body>
+</html>

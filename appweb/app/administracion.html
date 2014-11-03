@@ -1,0 +1,216 @@
+<!doctype html>
+<html class="no-js">
+<head>
+    <meta charset="utf-8">
+    <title>ZonaQR</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+
+
+    <script src="bower_components/platform/platform.js"></script>
+    <link rel="import" href="bower_components/core-scaffold/core-scaffold.html">
+    <link rel="import" href="bower_components/core-header-panel/core-header-panel.html">
+    <link rel="import" href="bower_components/core-scroll-header-panel/core-scroll-header-panel.html">
+    <link rel="import" href="bower_components/core-menu/core-menu.html">
+    <link rel="import" href="bower_components/core-item/core-item.html"/>
+    <link rel="import" href="bower_components/google-map/google-map.html"/>
+    <link rel="import" href="bower_components/paper-ripple/paper-ripple.html"/>
+
+    <link rel="import" href="bower_components/core-icons/core-icons.html"/>
+    <link rel="import" href="bower_components/paper-icon-button/paper-icon-button.html"/>
+    <link rel="import" href="bower_components/core-menu/core-menu.html"/>
+
+    <link rel="import" href="bower_components/paper-ripple/paper-ripple.html"/>
+
+
+
+    <!-- build:css styles/vendor.css -->
+    <!-- bower:css -->
+    <!-- endbower -->
+    <!-- endbuild -->
+
+    <!-- build:css styles/main.css -->
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/vendor.css">
+    <!-- endbuild -->
+
+</head>
+<body unresolved>
+
+<core-scaffold>
+
+    <core-header-panel navigation flex mode="seamed">
+        <core-toolbar>
+            Administracion
+            <div flex></div>
+            <core-icon-button id="btn_regresar" icon="arrow-back"></core-icon-button>
+        </core-toolbar>
+
+        <section>
+            <core-menu selected="0">
+                <core-item icon="file-map" class="btn_menu" url="panel-locaciones" label="Locaciones"><paper-ripple fit></paper-ripple></core-item>
+                <core-item icon="explore" class="btn_menu" url="panel-categorias" label="Categorias"><paper-ripple fit></paper-ripple></core-item>
+                <core-item icon="settings" label="Configuracion"><paper-ripple fit></paper-ripple></core-item>
+            </core-menu>
+        </section>
+    </core-header-panel>
+
+    <div id="logo_app" tool><img src="images/ZonaQR_logo.png"></div>
+
+    <div class="content" id="contenedor-forms">
+        <div class="app-cont container-fluid">
+
+            <div class="panel panel-locaciones">
+                <h3>Locaciones</h3>
+                <div class="btn-nuevo fab red">
+                    <core-icon icon="add"></core-icon>
+                    <paper-ripple class="circle recenteringTouch" fit></paper-ripple>
+                </div>
+                <div class="cont-form cont-form-categorias hide">
+                    <form class="formularip-app" id="formulario-locaciones">
+                        <input type="hidden" id="id_locacion">
+                        <div class="form-group">
+                            <label for="nombre">Nombre</label>
+                            <input type="text" name="nombre" class="form-control input-app" id="nombre" placeholder="Ingresa el nombre de la locacion">
+                        </div>
+                        <div class="form-group">
+                            <label for="descripcion">Descripcion</label>
+                            <input type="text" name="descripcion" class="form-control input-app" id="descripcion" placeholder="Ingresa la descripcion de la locacion">
+                        </div>
+                        <div class="form-group">
+                            <label for="categoria">Categoria</label>
+                            <select name="categoria" class="form-control" id="idcategoria">
+                            </select>
+                        </div>
+                        <div id="form-map"></div>
+                        <div class="form-group">
+                            <label for="latitud">Latitud</label>
+                            <input readonly type="text" name="latitud" class="form-control input-app" id="latitud" placeholder="Ingresa la latitud de la locacion">
+                        </div>
+                        <div class="form-group">
+                            <label for="longitud">Longitud</label>
+                            <input readonly type="text" name="longitud" class="form-control input-app" id="longitud" placeholder="Ingresa la longitud de la locacion">
+                        </div>
+                        <div class="form-group">
+                            <label for="direccion">Direccion</label>
+                            <input type="text" name="direccion" class="form-control input-app" id="direccion" placeholder="Ingresa la direccion de la locacion">
+                        </div>
+                        <div class="form-group">
+                            <label for="como_llegar">Como llegar</label>
+                            <input type="text" name="como_llegar" class="form-control input-app" id="como_llegar" placeholder="Ingresa como llegar a la locacion">
+                        </div>
+                        <div class="form-group">
+                            <label for="historia">Historia</label>
+                            <input type="text" name="historia" class="form-control input-app" id="historia" placeholder="Ingresa historia de la locacion">
+                        </div>
+                        <div class="form-group">
+                            <label for="imagen">Imagen</label>
+                            <input type="text" name="imagen" class="form-control input-app" id="imagen" placeholder="Ingresa el codigo base64 de imagen de la locacion">
+                        </div>
+                        <button type="button" class="btn btn-primary btn-locacion-guardar">Guardar</button>
+                        <button type="button" class="btn btn-primary btn-locacion-actualiza hide">Actualizar</button>
+                        <button type="button" class="btn btn-warning btn-cancel">Cancelar</button>
+                    </form>
+                </div>
+
+                <div class="cont-informacion">
+                    <table id="tabla-locaciones" class="table table-bordered">
+                        <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nombre</th>
+                            <th class="hidden-xs">Descripcion</th>
+                            <th>Mapa</th>
+                            <th class="hidden-xs">Como llegar</th>
+                            <th class="hidden-xs">Historia</th>
+                            <th class="hidden-xs">Foto</th>
+                            <th>Acciones</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+
+            <div class="panel panel-categorias hide">
+                <h3>Categorias</h3>
+                <div class="btn-nuevo fab red">
+                    <core-icon icon="add"></core-icon>
+                    <paper-ripple class="circle recenteringTouch" fit></paper-ripple>
+                </div>
+                <div class="cont-form cont-form-categorias hide">
+                    <form class="formularip-app" id="formulario-categorias">
+                        <input type="hidden" id="id_categoria">
+                        <div class="form-group">
+                            <label for="categoria">Categoria</label>
+                            <input type="text" name="categoria" class="form-control input-app" id="categoria" placeholder="Ingresa el nombre de la categoria">
+                        </div>
+                        <div class="form-group">
+                            <label for="icono">Icono</label>
+                            <input type="texto" name="icono" class="form-control input-app" id="icono" placeholder="Ingresa el icono a utilizar">
+                        </div>
+                        <button type="button" class="btn btn-primary btn-catlocacion-guardar">Guardar</button>
+                        <button type="button" class="btn btn-primary btn-catlocacion-actualiza hide">Actualizar</button>
+                        <button type="button" class="btn btn-warning btn-cancel">Cancelar</button>
+                    </form>
+
+                </div>
+
+                <div class="cont-informacion">
+                    <table id="tabla-categorias" class="table table-bordered">
+                        <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Categoria</th>
+                            <th>Icono</th>
+                            <th>Acciones</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="content" id="contenedor-informacion">
+
+    </div>
+
+
+
+</core-scaffold>
+
+
+
+
+
+<script type="text/javascript">
+    var rest = "http://192.168.110.156:8084/zonaqr/api/v1/";
+</script>
+<script src="https://maps.googleapis.com/maps/api/js?v=3.exp"></script>
+<!-- build:js scripts/vendor.js -->
+<!-- bower:js -->
+<script src="bower_components/jquery/dist/jquery.js"></script>
+
+<!-- endbower -->
+<!-- endbuild -->
+
+<!-- build:js scripts/main.js -->
+<script src="scripts/admin.js"></script>
+<!-- endbuild -->
+
+
+
+
+</body>
+</html>
